@@ -2,45 +2,50 @@ import React, { Component } from 'react';
 import logo from './logo.svg';
 import './App.css';
 
-const value1 = Math.floor(Math.random() * 100);
-const value2 = Math.floor(Math.random() * 100);
-const value3 = Math.floor(Math.random() * 100);
-const proposedAnswer = Math.floor(Math.random() * 3) + value1 + value2 + value3;
-const numQuestions = 0;
-const numCorrect = 0;
-
-
-
 
 class Quiz extends Component {
-    state = {
-    value1 : Math.floor(Math.random() * 100),
-    value2 : Math.floor(Math.random() * 100),
-    value3 : Math.floor(Math.random() * 100),
-    proposedAnswer : Math.floor(Math.random() * 3) + value1 + value2 + value3,
-    numQuestions,
-    numCorrect
-  };
+  
 
+constructor(){
+  super();
+  var values = {
+      value1 : Math.floor(Math.random() * 100),
+    value2 : Math.floor(Math.random() * 100),
+    value3 : Math.floor(Math.random() * 100)
+  };
+  var proposedAnswer = Math.floor(Math.random() * 3) + values.value1 + values.value2 + values.value3;
+    this.state = {
+      ...values,
+	proposedAnswer,
+    numQuestions: 0,
+    numCorrect : 0
+  };
+}
+
+componentDidMount(){
+
+}
 
  checkAnswer = answer => {
-  	var correct = answer === (proposedAnswer === value1 + value2 + value3);
+  	var correct = answer === (this.state.proposedAnswer === this.state.value1 + this.state.value2 + this.state.value3);
+     var values = {
+      value1 : Math.floor(Math.random() * 100),
+    value2 : Math.floor(Math.random() * 100),
+    value3 : Math.floor(Math.random() * 100)
+  };
+   
+  var proposedAnswer = Math.floor(Math.random() * 3) + values.value1 + values.value2 + values.value3;
+   
   	this.setState(prevState => {
       return {
-      value1 : Math.floor(Math.random() * 100),
-      value2 : Math.floor(Math.random() * 100),
-      value3 : Math.floor(Math.random() * 100),
-      proposedAnswer : Math.floor(Math.random() * 3) + value1 + value2 + value3,
+      ...values,
+	proposedAnswer,
       numCorrect : prevState.numCorrect +  (correct ? 1 : 0),
       numQuestions : prevState.numQuestions + 1
     };
     });
   
 };
-
-constructor(){
-  super();
-}
 
 render() {
   return (        
