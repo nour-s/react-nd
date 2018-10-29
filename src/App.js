@@ -3,8 +3,16 @@ import logo from './logo.svg';
 import './App.css';
 
 const Button = props => (
-  <button disabled={props.disabled}>Add</button>
-  );
+  <button onClick={props.onClick} disabled={props.disabled}>{props.text}</button>
+);
+
+const ItemList = props => 
+(
+  <ol className="item-list">
+    <p className="items">Items</p>
+    {props.items.map((item, index) => <li key={index}>{item}</li>)}
+  </ol>
+);
 
 class App extends React.Component {
   state = {
@@ -52,17 +60,10 @@ class App extends React.Component {
             value={this.state.value}
             onChange={this.handleChange}
           />
-		<Button disabled={this.inputIsEmpty()} />
+		<Button disabled={this.inputIsEmpty()} text="Add" />
         </form>
-
-        <button onClick={this.deleteLastItem} disabled={this.noItemsFound()}>
-          Delete Last Item
-        </button>
-
-        <p className="items">Items</p>
-        <ol className="item-list">
-          {this.state.items.map((item, index) => <li key={index}>{item}</li>)}
-        </ol>
+		<Button onClick={this.deleteLastItem} disabled={this.noItemsFound()} text="Delete Last Item"/>
+		<ItemList items= {this.state.items} />
       </div>
     );
   }
